@@ -8,11 +8,17 @@ export let endpoints = {
    "orders":"/orders/",
    "current-user": "/users/current-user/",
    "login":"/o/token/",
-   "register-shipper":"/addshipper/",
+   "register-shipper":"/register-shipper/",
    "shippers":"/shippers/",
    "list-user":"/users/",
-   "shippers-detail": (shippersId) => `/shippers/${shippersId}/`,
-   
+   "shipper-detail": (shippersId) => `/shippers/${shippersId}/`,
+   "order-detail":(orderId)=> `/orders/${orderId}/`,
+   "my-orders" : "/customers/my-orders/",
+   "comment": (shippersId)=> `/shippers/${shippersId}/comments/`,
+   "addcomment" : (shippersId)=> `/shippers/${shippersId}/add-comment/`,
+   "orderlist" :"/orders/",
+   "registercustomer": "/register-customer/", 
+   "customers": "/customers/",
 
 
 

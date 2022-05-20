@@ -4,13 +4,17 @@ import { useParams } from 'react-router-dom';
 import Apis, { authApi, endpoints } from '../config/Apis';
 import Item from './Item';
 
-export default function Orders() {
+
+
+export default function OrderList(){
+
+
     const [orders, setOrders] = useState([])
     useEffect(() => {
         const loadOrders = async () => {
             
             // const res = await authApi().get((endpoints['customer-order'])(1))
-            const res = await authApi().get(endpoints['my-orders'])
+            const res = await authApi().get(endpoints['orderlist'])
             setOrders(res.data)
             // setOrders(res.data)
              console.log(orders)
@@ -19,7 +23,11 @@ export default function Orders() {
         loadOrders()
     }, [])
 
-    return (
+
+    return(
+
+        <>
+        
         <Container>
             <h1 className="text-center text-danger">DANH SACH ORDER</h1>
             
@@ -31,6 +39,11 @@ export default function Orders() {
                 })}
             </Row>
         </Container>   
+
+        
+        
+        </>
+
+
     )
 }
-
