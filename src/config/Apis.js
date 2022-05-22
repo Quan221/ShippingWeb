@@ -16,9 +16,17 @@ export let endpoints = {
    "my-orders" : "/customers/my-orders/",
    "comment": (shippersId)=> `/shippers/${shippersId}/comments/`,
    "addcomment" : (shippersId)=> `/shippers/${shippersId}/add-comment/`,
-   "orderlist" :"/orders/",
+//    "orderlist" :"/orders/",
    "registercustomer": "/register-customer/", 
    "customers": "/customers/",
+   "rating": (shippersId)=> `/shippers/${shippersId}/rating/`,
+   "addbidding": (orderId) =>`/orders/${orderId}/bidding/`,
+   "loadbidding":(orderId)=> `/orders/${orderId}/list-bidding/`,
+   "addOrder": "/add-order/",
+   "addreceipt": (orderId)=> `/orders/${orderId}/add-receipt/`,
+   "receipt": "/receipts/my-receipt/",
+   "shipper-view": "/shippers-view/",
+   "changeStatus" :(orderId) =>`/orders/${orderId}/change-status/`,
 
 
 

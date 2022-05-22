@@ -19,12 +19,14 @@ export default function RegisterCustomer(){
 
     return(
         <>
-        <h1 className="text-center text-danger">Dang Ky Shiper</h1>
-        <Form onSubmit={addCustomer}>
-            <Button variant="primary" type="submit">
-                Dang ky
+        <h1 className="text-center text-danger">Get Start</h1>
+       
+        <Form onSubmit={addCustomer} >
+            <Button variant="primary" type="submit" className="position ">
+                Start
             </Button>
         </Form>
+       
         </>
     )
 

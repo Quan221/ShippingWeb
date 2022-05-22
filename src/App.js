@@ -12,10 +12,12 @@ import ShipperList from './components/ShipperList';
 import Orders from './components/Orders';
 import AddOrder from './components/AddOrder';
 import ShipperDetail from './components/ShipperDetail';
-import Home from './components/Home';
+
 import OrderDetail from './components/OrderDetail';
 import OrderList from './components/OrderList';
 import RegisterCustomer from './components/RegisterCustomer';
+import OrderBidding from './components/OrderBidding';
+import Receipt from './components/Receipt';
 
 
 export const UserContext = createContext()
@@ -29,8 +31,8 @@ function App() {
         <Header />
         <Routes>
           {/* <Route path="/Home " element={<Home />}/> */}
-          <Route path="/registershiper" element={<RegisterShiper/>} />
           <Route path="/login" element={<Login />} />
+          <Route path="/registershiper" element={<RegisterShiper/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/shippers" element={<ShipperList/>} />
           <Route path="/my-orders" element={<Orders/>} />
@@ -39,6 +41,9 @@ function App() {
           <Route path="/orders/:ordersId" element={<OrderDetail/>} />
           <Route path="/order" element={<OrderList/>} />
           <Route path="/registercustomer" element={<RegisterCustomer/>} />
+          <Route path="/bidding/:ordersId/" element={<OrderBidding/>} />
+          <Route path="/receipt" element={<Receipt/>} />
+          
           
         </Routes>
         {/* <Footer /> */}

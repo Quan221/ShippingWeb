@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react'
-import { Form, Button, Container } from 'react-bootstrap'
+import { Form, Button, Container, Col } from 'react-bootstrap'
 import { UserContext } from '../App'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import Apis, {endpoints, authApi} from '../config/Apis'
 import cookies from 'react-cookies'
+import "./Css.css"
+
 
 
 const Login = () => {
@@ -17,8 +19,8 @@ const Login = () => {
         const res = await Apis.post(endpoints['login'], {
             'username': username,
             'password': password,
-            'client_id': 'nOWw4NetjuyH87eaFfIBTVOInyk6ZPBfsDURVOfr',
-            'client_secret': 'EKamqd1L8B0cMqcRteiExfGfi3ubOT8CODeflQ2mbzFIYIlwPovcg5ZKZ6DYCctE0lF5pvVCTtA1uBJzDI03tFaJgkGAJVjbD07QCQTfHEGVXWV8PMl542gLhOPrLOVN',
+            'client_id': '10CmnmdevYcyDLfIqVVpyGlHPI2zoclByiXcyDaX',
+            'client_secret': 'DE6NX2tpT39tqKEm2IE44SsoxjrTEv3owa3m5qUxeD8fchKxxYRQlcAs7qLa2xKNtJZVWDwlM2FsS11V1MOc5JCkCA6ixl89GrmD78nCJaHWgpwSH78RxJOnD0q5a8fG',
             'grant_type': 'password'
         })
 
@@ -38,15 +40,18 @@ const Login = () => {
         return <Navigate to="/" />
         
     return (
-        <Container>
+        <div  className="sign-up-container form form-container">
+        <Container >
             <h1 className="text-center text-danger">DANG NHAP</h1>
+            <Col >
             <Form onSubmit={login} >
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text" 
                         value={username} 
                         onChange={(evt) => setUsername(evt.target.value)}
-                        placeholder="Nhap username" />
+                        placeholder="Nhap username" 
+                        required/>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -54,13 +59,16 @@ const Login = () => {
                     <Form.Control type="password" 
                             value={password} 
                             onChange={(evt) => setPassword(evt.target.value)}
-                            placeholder="Password" />
+                            placeholder="Password" required />
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Dang nhap
                 </Button>
+               <Button className="button "> <Link to="/register" className='link' >Dang ky</Link></Button>
             </Form>
+            </Col>
         </Container>
+        </div>
     )
 }
 

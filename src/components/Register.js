@@ -1,6 +1,7 @@
 
 import { useRef, useState } from "react";
 import { Button, Form,Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 import Apis, { endpoints } from "../config/Apis";
 
@@ -12,7 +13,14 @@ export default function Register() {
     const [lastName, setLastName] = useState()
     const [email, setEmail] = useState()
     const avatar = useRef()
-    
+    const nav = useNavigate()
+    const goToLogin =(event)=>{
+        
+       {
+        nav(`/login`)
+       }
+
+    }
 
     const register = (event) => {
         event.preventDefault()
@@ -31,8 +39,9 @@ export default function Register() {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
+
                 })
-    
+               
                 
             } catch (err) {
                 console.error(err)
@@ -41,7 +50,9 @@ export default function Register() {
         }
 
         if (password !== null && password === confirmPassword) {
-            registerUser()
+            registerUser() 
+            goToLogin()
+            
         }
     }
 
@@ -73,7 +84,7 @@ export default function Register() {
                 <Form.Control type="file" ref={avatar} className="form-control" />
             </Form.Group>
             
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" >
                 Dang ky
               </Button>
             </Form>

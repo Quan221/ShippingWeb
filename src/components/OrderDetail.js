@@ -1,27 +1,59 @@
 import { useEffect, useState } from "react"
-import { Image, Col, Row, Container, Spinner, Figure } from "react-bootstrap"
-import { useParams } from "react-router-dom"
+import { Image, Col, Row, Container, Spinner, Figure, Table, Button, Form } from "react-bootstrap"
+import { useNavigate, useParams } from "react-router-dom"
 import { authApi, endpoints } from "../config/Apis"
 
  function OrderDetail(){
-    
-    const [orders,setOrders] =useState([])
     const {ordersId} = useParams()
 
+    
+    const [orders,setOrders] =useState([])
+    const [bid,setBid] =useState([])
+    const [toAddress,setToAddress]= useState()
+    const [fromAddress,setFromAddress] = useState()
+    const [ordername,setOrdername] =useState()
+    const [image,setImage] = useState()
+    const [status,setStatus]= useState()
+   
+
+   
     
     useEffect (()=>{
         const loadOrders = async()=>{
             
             let res = await authApi().get((endpoints['order-detail'](ordersId)))
             setOrders(res.data)
+            setToAddress(res.data.to_address)
+            setFromAddress(res.data.from_address)
+            setOrdername(res.data.order_name)
+            setImage(res.data.image_path)
+            setStatus(res.data.status.name)
             console.log(orders)
 
            
         }
+      
         loadOrders()
      
     }, [] )
    
+    useEffect(()=>{
+
+        const loadBid= async ()=>{
+            let list = await authApi().get((endpoints['loadbidding'])(ordersId))
+            setBid(list.data)
+            console.log(list.data)
+            
+            
+        }
+
+
+        loadBid()
+
+
+
+    }, [])
+  
 
     // if (shipper.user===null)
 
@@ -33,6 +65,21 @@ import { authApi, endpoints } from "../config/Apis"
         
         
     //             </>
+    let list = <>
+    </>
+    if (status=="Dang Dau Gia")
+        list = <>
+                
+                {
+                        bid.map(c => {
+                            return <TableBox id={c.id} shipperId={c.shipper.id} first_name={c.shipper.user.first_name} last_name={c.shipper.user.last_name} bid={c.bid} ordersId={c.order.id}  />
+                        })
+                        
+                    } 
+            </>
+
+
+
         
     return (
 
@@ -40,7 +87,31 @@ import { authApi, endpoints } from "../config/Apis"
 
           <h1 className="text-center text-danger" > Chi tiet Order</h1>         
          
-         <Detail image={orders['image']} order_name={orders.order_name} from_address={orders['from_address']} to_address={orders['to_address']} />  
+         <Detail image={image} order_name={ordername} from_address={fromAddress} to_address={toAddress} />  
+         <h1>{status}</h1>
+         
+        <Table>
+        <thead>
+                <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                </tr>
+        </thead>
+        </Table>
+        
+     
+                   {/* {
+                        bid.map(c => {
+                            return <TableBox id={c.id} first_name={c.shipper.user.first_name} last_name={c.shipper.user.last_name} bid={c.bid} />
+                        })
+                        
+                    }  */}
+                    {list}
+                   
+            
+                
         </Container>
     )
 
@@ -50,6 +121,7 @@ import { authApi, endpoints } from "../config/Apis"
 }
 export default OrderDetail
 function Detail (props){
+    
     return(
     <Row>
     <Col>
@@ -59,9 +131,7 @@ function Detail (props){
                     height={180}
                     src={props.image}
                 />
-                <Figure.Caption>
-                    Shipper ni` dep que iiiii 
-                </Figure.Caption>
+                
         </Figure>
     </Col>
     <Col>
@@ -70,4 +140,53 @@ function Detail (props){
         <p>Dia Chi Gui : {props.to_address} </p>
     </Col>
 </Row>)
+}
+function TableBox(props){
+    const nav = useNavigate()
+    const goToOrder =()=>{
+        {
+            nav(`/my-orders/`)
+    
+    
+        }
+    
+    }
+
+    
+    const addReceipt = async (event)=>{
+
+        event.preventDefault()
+        let res = await authApi().post((endpoints['addreceipt'])(props.ordersId),{
+            "shipper" : props.shipperId,
+            "price" : props.bid ,
+            "order" : props.ordersId,
+
+            }
+        )
+        goToOrder()
+
+    }
+    
+    return(
+
+        <Row>
+            <Form onSubmit={addReceipt}>
+             <Table striped bordered hover>
+                       
+                        <tbody>
+                            <tr>
+                            <td>{props.id}</td>
+                            <td>{props.first_name}</td>
+                            <td>{props.last_name}</td>
+                            <td>{props.bid}</td>
+                            </tr>
+                       
+                        </tbody> 
+                        
+                            <Button type="submit"   > Chon</Button>
+                       
+                        </Table>
+                     </Form>
+        </Row>
+    )
 }

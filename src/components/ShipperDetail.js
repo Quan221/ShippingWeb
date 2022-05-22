@@ -13,7 +13,7 @@ import { authApi, endpoints } from "../config/Apis"
     const [ avatar, setAvatar]= useState()
     const [ comments,setComments] = useState([])
     const [content,setContent] = useState()
-
+    const [rating,setRating] = useState(0)
     
     useEffect (()=>{
         const loadShipperById = async()=>{
@@ -47,6 +47,14 @@ import { authApi, endpoints } from "../config/Apis"
         let res = await authApi().post((endpoints['addcomment'])(shippersId),{
             'content' : content, } )
     }
+    const addRating = async (event)=>{
+        event.preventDefault()
+        let res = await authApi().post(((endpoints['rating'])(shippersId)),{
+            'rate' : rating,
+        })
+
+
+    }
     // if (shipper.user===null)
 
     //     return <>
@@ -73,6 +81,15 @@ import { authApi, endpoints } from "../config/Apis"
                             <Form.Control type="text" value={content} onChange={(evt) => setContent(evt.target.value)} placeholder="Your comment..." />
                         </Form.Group>
                         <Button type="submit" variant="primary">Them binh luan</Button>
+                    </Form>
+                    <Form onSubmit={addRating}>
+                         <Form.Select type="number" aria-label="Default select example" value={rating} onChange={(event)=>setRating(event.target.value)} >
+                                    <option>Open this select menu</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                         </Form.Select>
+                         <Button type="submit" variant="primary" > Rating</Button>
                     </Form>
                 </Col>
             </Row>
@@ -103,9 +120,7 @@ function Descrip (props){
                     height={180}
                     src={props.avatar}
                 />
-                <Figure.Caption>
-                    Shipper ni` dep que iiiii 
-                </Figure.Caption>
+                
         </Figure>
     </Col>
     <Col>

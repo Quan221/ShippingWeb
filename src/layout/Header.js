@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { UserContext } from "../App"
 import { authApi, endpoints } from '../config/Apis';
+import '../components/Css.css';
 
 
 function Header() {
@@ -45,14 +46,11 @@ function Header() {
     }
 
     const logout = (evt) => {
-        evt.preventDefault()
         dispatch({"type": "logout"})
     }
 
     let btn =<>
      <Link to="/login" className="nav-link text-danger">Dang nhap</Link>
-     <Link to="/register" className="nav-link text-danger">Dang ky</Link>
-
      </>
      
         
@@ -77,12 +75,26 @@ function Header() {
                     
                 }
             }
-            if(checkShipper===0)
-               { if(checkCustomer===1)   
+          if(checkShipper===1)
+                { 
+                        btn = <>
+                        
+                        <Link to="/" className="nav-link text-danger"> Shipper: {user.username} </Link>
+                        <Link to="/login" onClick={logout} className="nav-link text-danger">Dang xuat</Link>
+                        <Link to="/order/" className= "nav-link text-danger"  > Orders </Link>
+                        <Link to="/receipt" className='nav-link text-danger'>Receipt</Link>
+
+                    </>
+               
+              }
+
+
+            else {
+                if(checkCustomer===1)   
                      {   btn = 
                             <>
                                 <Link to="/" className="nav-link text-danger">{user.username} </Link>
-                                <a href="#" onClick={logout} className="nav-link text-danger">Dang xuat</a>
+                                <Link to="/login" onClick={logout} className="nav-link text-danger">Dang xuat</Link>
                                 <Link to="/registershiper" className='nav-link text-danger' > Dang Ky Shipper </Link>
                                 <Link to="/shippers/" className='nav-link text-danger' >Shipper</Link>
                                 <Link to="/my-orders" className='nav-link text-danger' >Oders</Link>
@@ -94,24 +106,12 @@ function Header() {
                             btn = 
                             <>
                                 <Link to="/" className="nav-link text-danger">{user.username} </Link>
-                                <a href="#" onClick={logout} className="nav-link text-danger">Dang xuat</a>
+                                <Link to="/login" onClick={logout} className="nav-link text-danger">Dang xuat</Link>
                                 <Link to="/registershiper" className='nav-link text-danger' > Dang Ky Shipper </Link>
                                 <Link to="/registercustomer/" className='nav-link text-danger'  > Begin </Link>
                             </>  
                         }
-               
-              }
-
-
-            else {
-                    btn = <>
-                        
-                        <Link to="/" className="nav-link text-danger"> Shipper: {user.username} </Link>
-                        <a href="#" onClick={logout} className="nav-link text-danger">Dang xuat</a>
-                        <Link to="/order/" className= "nav-link text-danger"  > Orders </Link>
-
-
-                    </>
+                    
             }
 
   
@@ -123,17 +123,17 @@ function Header() {
 
       }
     return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark"  >
             <Link to="/" className="navbar-brand">e-Course Online</Link>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="me-auto">
+                <Nav className="me-auto" fill variant='tabs' >
                     {/* {categories.map(c => {
                         const url = `/?category_id=${c.id}`
                         return <Link to={url} className="nav-link">{c.name}</Link>
                     })} */}
                     
-                    {btn}
+                     {btn}
                 </Nav>
                 <Form className="d-flex" onSubmit={search}>
                     <FormControl

@@ -16,8 +16,8 @@ export default function CardShipper  (props){
 
 
         <Col md={4} xs={12}>
-            <Card >
-                <Card.Img variant="top" src={props.avatar}  />
+            <Card  >
+                <Card.Img variant="top" src={props.avatar} height="350px"  />
                 <Card.Body>
                     <Card.Title>{props.first_name}</Card.Title>
                     <Button variant="primary" onClick={goToShipper} >Xem chi tiet</Button>
