@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react"
 import { Image, Col, Row, Container, Spinner, Figure, FormControl,Form,Button } from "react-bootstrap"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { authApi, endpoints } from "../config/Apis"
 
  function OrderBidding(){
@@ -9,6 +9,14 @@ import { authApi, endpoints } from "../config/Apis"
     const [orders,setOrders] =useState([])
     const [bidding,setBidding] = useState()
     const {ordersId} = useParams()
+    const nav=useNavigate()
+    const goToOrder=()=>{
+
+        {
+            nav(`/order/`)
+        }
+
+    }
 
     
     useEffect (()=>{
@@ -29,6 +37,7 @@ import { authApi, endpoints } from "../config/Apis"
             'bid': bidding,
         })
         setBidding(' ')
+        goToOrder()
 
 
     }

@@ -14,10 +14,10 @@ export default function Register() {
     const [email, setEmail] = useState()
     const avatar = useRef()
     const nav = useNavigate()
-    const goToLogin =(event)=>{
+    const goToLogin =()=>{
         
        {
-        nav(`/login`)
+        nav(`/login/`)
        }
 
     }

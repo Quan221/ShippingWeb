@@ -61,9 +61,10 @@ export default function Receipt(){
 }
 function Items (props){
     const nav = useNavigate()
-    const goToReceipt=(event)=>{
-        event.preventDefault()
-       { nav(`/receipt`)
+    const goToReceipt=()=>{
+        
+       { 
+           nav(`/order/`)
 
         }
 

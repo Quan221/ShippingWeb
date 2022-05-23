@@ -1,17 +1,24 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import Apis, { authApi, endpoints } from "../config/Apis";
 
 export default function RegisterShiper(){
     const [CMND,setCMND] = useState([])
     
-    
+    const nav=useNavigate()
+    const goToLogin= ()=>{
+
+
+        {nav(`/login/`)}
+    }
     const addShipper = async (event) =>{
 
         event.preventDefault()
         const res = await authApi().post(endpoints['register-shipper'],{
             'identity_number': CMND,
         })
+        goToLogin()
         console.log(res.data)
         
         setCMND('')
